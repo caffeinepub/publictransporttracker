@@ -1,0 +1,234 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Leaflet CSS */
+@import "leaflet/dist/leaflet.css";
+
+/* Font faces */
+@font-face {
+  font-family: "Cabinet Grotesk";
+  src: url("/assets/fonts/CabinetGrotesk-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/assets/fonts/JetBrainsMono[wght].woff2") format("woff2");
+  font-weight: 100 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Sora";
+  src: url("/assets/fonts/Sora[wght].woff2") format("woff2");
+  font-weight: 100 800;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+
+    /* Transit Dashboard — Dark Control Room Theme */
+    --background: 0.14 0.015 240;
+    --foreground: 0.92 0.01 240;
+    --card: 0.16 0.02 240;
+    --card-foreground: 0.92 0.01 240;
+    --popover: 0.18 0.025 240;
+    --popover-foreground: 0.92 0.01 240;
+    --primary: 0.72 0.18 200;
+    --primary-foreground: 0.1 0.015 240;
+    --secondary: 0.22 0.025 240;
+    --secondary-foreground: 0.82 0.01 240;
+    --muted: 0.2 0.02 240;
+    --muted-foreground: 0.55 0.02 240;
+    --accent: 0.72 0.18 200;
+    --accent-foreground: 0.1 0.015 240;
+    --destructive: 0.62 0.24 25;
+    --destructive-foreground: 0.98 0 0;
+    --border: 0.28 0.025 240;
+    --input: 0.22 0.025 240;
+    --ring: 0.72 0.18 200;
+
+    /* Status colors */
+    --status-active: 0.72 0.19 142;
+    --status-delayed: 0.78 0.17 80;
+    --status-outofservice: 0.62 0.24 25;
+
+    /* Chart colors */
+    --chart-1: 0.72 0.18 200;
+    --chart-2: 0.72 0.19 142;
+    --chart-3: 0.78 0.17 80;
+    --chart-4: 0.65 0.22 270;
+    --chart-5: 0.62 0.24 25;
+
+    /* Sidebar */
+    --sidebar: 0.12 0.018 240;
+    --sidebar-foreground: 0.88 0.01 240;
+    --sidebar-primary: 0.72 0.18 200;
+    --sidebar-primary-foreground: 0.1 0.015 240;
+    --sidebar-accent: 0.18 0.022 240;
+    --sidebar-accent-foreground: 0.88 0.01 240;
+    --sidebar-border: 0.24 0.022 240;
+    --sidebar-ring: 0.72 0.18 200;
+
+    /* Transit accent */
+    --transit-cyan: 0.72 0.18 200;
+    --transit-green: 0.72 0.19 142;
+    --transit-amber: 0.78 0.17 80;
+    --transit-red: 0.62 0.24 25;
+    --transit-purple: 0.65 0.22 270;
+    --transit-blue: 0.6 0.2 230;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Sora", sans-serif;
+  }
+
+  .font-mono-data {
+    font-family: "JetBrains Mono", monospace;
+  }
+
+  .font-display {
+    font-family: "Cabinet Grotesk", sans-serif;
+  }
+}
+
+/* Leaflet customizations */
+.leaflet-container {
+  background: oklch(0.12 0.018 240) !important;
+  font-family: "Sora", sans-serif !important;
+}
+
+.leaflet-popup-content-wrapper {
+  background: oklch(0.18 0.025 240) !important;
+  color: oklch(0.92 0.01 240) !important;
+  border: 1px solid oklch(0.28 0.025 240) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+}
+
+.leaflet-popup-tip {
+  background: oklch(0.18 0.025 240) !important;
+}
+
+.leaflet-popup-close-button {
+  color: oklch(0.55 0.02 240) !important;
+}
+
+.leaflet-popup-close-button:hover {
+  color: oklch(0.92 0.01 240) !important;
+}
+
+.leaflet-control-zoom {
+  border: 1px solid oklch(0.28 0.025 240) !important;
+  background: oklch(0.16 0.02 240) !important;
+}
+
+.leaflet-control-zoom a {
+  background: oklch(0.16 0.02 240) !important;
+  color: oklch(0.72 0.18 200) !important;
+  border-color: oklch(0.28 0.025 240) !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background: oklch(0.22 0.025 240) !important;
+}
+
+.leaflet-control-attribution {
+  background: oklch(0.12 0.018 240 / 0.85) !important;
+  color: oklch(0.45 0.02 240) !important;
+}
+
+.leaflet-control-attribution a {
+  color: oklch(0.6 0.12 200) !important;
+}
+
+/* Custom bus marker */
+.bus-marker-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+/* Pulse animation for active buses */
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+.bus-pulse {
+  animation: pulse-ring 1.5s ease-out infinite;
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: oklch(0.16 0.02 240);
+}
+::-webkit-scrollbar-thumb {
+  background: oklch(0.28 0.025 240);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.38 0.03 240);
+}
+
+/* Shimmer skeleton */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    oklch(0.2 0.02 240) 25%,
+    oklch(0.26 0.025 240) 50%,
+    oklch(0.2 0.02 240) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* Refresh dot animation */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+
+.refresh-dot {
+  animation: blink 1s ease-in-out infinite;
+}
+
+/* Transit tile dark filter */
+.leaflet-tile {
+  filter: brightness(0.65) saturate(0.5) hue-rotate(180deg) invert(1);
+}
+
+/* Stop marker */
+.stop-marker-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.stop-marker-container:hover {
+  transform: scale(1.4);
+}
